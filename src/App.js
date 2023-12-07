@@ -4,6 +4,7 @@ import { generateDate, months } from "./util/calendar";
 import cn from "./util/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { FiPlus } from 'react-icons/fi';
+import Week from "./components/Week";
 
 
 export default function Calendar() {
@@ -11,8 +12,28 @@ export default function Calendar() {
 	const currentDate = dayjs();
 	const [today, setToday] = useState(currentDate);
 	const [selectDate, setSelectDate] = useState(currentDate);
-	return (
-		<div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
+	const [returnDate, setReturnDate] = useState();
+	const [isScheduled, setIsScheduled] = useState(null);
+
+	const postSelectDate = (date) => {
+		fetch("http://localhost:8000/meetings", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				date: date.toDate().toDateString(),
+				timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+			}),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				setReturnDate(data.date);
+				setIsScheduled(data.scheduled)
+			});
+	}
+
+	return (<>
+		<div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col hidden">
 			<div className="w-96 h-96 ">
 				<div className="flex justify-between items-center">
 					<h1 className="select-none font-semibold">
@@ -97,12 +118,23 @@ export default function Calendar() {
 					<p className="text-gray-400">No meetings for today.</p>
 				</div>
 				<div>
-					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
-						<FiPlus className="w-full h-full" />
+					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded"
+					onClick={() => {
+						postSelectDate(selectDate)
+					}}
+					>
+						<FiPlus className="w-full h-full" 
+						/>
 					</button>
+				</div>
+				<div>
+					{ returnDate && isScheduled && <h1>Your meeting is booked for {returnDate}</h1>}
+					{isScheduled === false && <h1>Your meeting is not booked</h1>}
 				</div>
 				</div>
 			</div>
 		</div>
+		<Week/>
+		</>
 	);
 }
