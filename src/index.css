@@ -50,13 +50,5 @@ td:hover {
     height: 100%;
     width: 100%;
     z-index: 20;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-/* .mango-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
+}

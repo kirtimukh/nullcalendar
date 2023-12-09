@@ -6,15 +6,13 @@ export default function EventModal() {
 
   return (
     <>
-      <div className='w-full h-full mango-content'>
-        <Draggable bounds="parent">
-          <div className='modal-content'>
-
+      <div onClick={(event) => { event.stopPropagation() }} className='w-1/4 h-1/4 bg-amber-200 relative'>
+        <div className='w-full h-full'>
+          <div className='mangoform'>
             <h2>Create Event</h2>
             <button className='close-modal'>Close</button>
-
           </div>
-        </Draggable>
+        </div>
       </div>
     </>
   );

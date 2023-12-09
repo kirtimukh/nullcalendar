@@ -60,12 +60,14 @@ export default function Week() {
         </div>
         {showEventModal &&
           <div
-            className='mangobyte ClassEventModal overlay bg-gray-500 bg-opacity-50'
+            className='mangobyte overlay bg-gray-500 bg-opacity-50'
             onClick={(e) => { handleClickOnMangoByte(e) }}
           >
-            <div onClick={(e) => { e.stopPropagation() }} className='w-1/4 h-1/4 bg-amber-200'>
-              <EventModal />
-            </div>
+            <Draggable bounds="parent">
+              <div onClick={(e) => { e.stopPropagation() }} className='w-1/4 h-1/4 bg-amber-200 relative'>
+                <EventModal />
+              </div>
+            </Draggable>
 
           </div>
         }
