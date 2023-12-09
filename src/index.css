@@ -3,11 +3,19 @@
 @tailwind utilities;
 
 
-/* .calendar-week-view {
+/* Path: src/App.css required for Draggable to work - position (relative or absolute), width, and height*/
+.week-background {
     position: relative;
     width: 100vw;
     height: 100vh;
-} */
+}
+
+.calendar-week-view {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
 
 .table-container {
     width: 800px;
@@ -35,3 +43,20 @@ th {
 td:hover {
     background-color: lightgray;
 }
+
+.mangobyte {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .mango-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */

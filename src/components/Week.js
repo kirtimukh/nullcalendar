@@ -1,51 +1,75 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from "dayjs";
 import Draggable from 'react-draggable';
 
-export default class Week extends Component {
+import EventModal from './modals/createEventModal';
 
-  render() {
-    const startOfWeek = dayjs().startOf('week');
+export default function Week() {
 
-    let weekDates = [];
-    for (let i = 0; i < 7; i++) {
-      weekDates.push(startOfWeek.add(i, 'day').format('YYYY-MM-DD'));
-    }
+  const startOfWeek = dayjs().startOf('week');
 
-    return (
-      <div className='calendar-week-view'>
-        <Draggable bounds="parent">
-        <div className='table-container'>
-          <table>
-            <thead>
-              <tr>
-                <th role="columnheader">
-                  {/* <h4></h4>
-                  <p className='text-xl'></p> */}
-                </th>
-                {weekDates.map(date => (
-                  <th role="columnheader" key={date}>
-                    <h4>{dayjs(date).format('ddd')}</h4>
-                    <p className='text-xl'>{dayjs(date).format('D')}</p>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Array.from({ length: 24 }).map((_, hour) => (
-                <tr key={hour}>
-                  <td className="align-top">{hour}:00</td>
-                  {weekDates.map(date => (
-                    <td className='border-t border-l border-gray-100 rounded-l-none' key={`${date}-${hour}-00-59`}></td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        </Draggable>
-      </div>
-    );
+  let weekDates = [];
+  for (let i = 0; i < 7; i++) {
+    weekDates.push(startOfWeek.add(i, 'day').format('YYYY-MM-DD'));
   }
-}
+  const [showEventModal, setShowEventModal] = useState(false);
 
+  const displayEventModal = (e) => {
+    setShowEventModal(true)
+  }
+
+  const handleClickOnMangoByte = (e) => {
+    setShowEventModal(false)
+  }
+
+  return (
+    <>
+      <div className='week-background'>
+        <div className='calendar-week-view'>
+          <Draggable bounds="parent">
+            <div className='table-container'>
+              <table>
+                <thead>
+                  <tr>
+                    <th role="columnheader">
+                      {/* <h4></h4>
+                  <p className='text-xl'></p> */}
+                    </th>
+                    {weekDates.map(date => (
+                      <th role="columnheader" key={date}>
+                        <h4>{dayjs(date).format('ddd')}</h4>
+                        <p className='text-xl'>{dayjs(date).format('D')}</p>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from({ length: 24 }).map((_, hour) => (
+                    <tr key={hour}>
+                      <td className="align-top">{hour}:00</td>
+                      {weekDates.map(date => (
+                        <td className='border-t border-l border-gray-100 rounded-l-none' key={`${date}-${hour}-00-59`}
+                          onClick={displayEventModal}></td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Draggable>
+        </div>
+        {showEventModal &&
+          <div
+            className='mangobyte ClassEventModal overlay bg-gray-500 bg-opacity-50'
+            onClick={(e) => { handleClickOnMangoByte(e) }}
+          >
+            <div onClick={(e) => { e.stopPropagation() }} className='w-1/4 h-1/4 bg-amber-200'>
+              <EventModal />
+            </div>
+
+          </div>
+        }
+      </div>
+    </>
+  );
+}
