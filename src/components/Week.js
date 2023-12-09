@@ -18,22 +18,30 @@ export default function Week() {
     setShowEventModal(true)
   }
 
-  const handleClickOnMangoByte = (e) => {
+  const hideEventModal = (e) => {
     setShowEventModal(false)
   }
+
+  let isDragging = false;
 
   return (
     <>
       <div className='week-background'>
         <div className='calendar-week-view'>
-          <Draggable bounds="parent">
+          <Draggable
+            bounds="parent"
+            onDrag={() => isDragging = true}
+            onStop={() => {
+              setTimeout(() => {
+                isDragging = false
+              }, 100)
+            }}
+          >
             <div className='table-container'>
               <table>
                 <thead>
                   <tr>
                     <th role="columnheader">
-                      {/* <h4></h4>
-                  <p className='text-xl'></p> */}
                     </th>
                     {weekDates.map(date => (
                       <th role="columnheader" key={date}>
@@ -49,7 +57,7 @@ export default function Week() {
                       <td className="align-top">{hour}:00</td>
                       {weekDates.map(date => (
                         <td className='border-t border-l border-gray-100 rounded-l-none' key={`${date}-${hour}-00-59`}
-                          onClick={displayEventModal}></td>
+                          onClick={(e) => { isDragging ? e.preventDefault() : displayEventModal() }}></td>
                       ))}
                     </tr>
                   ))}
@@ -58,19 +66,7 @@ export default function Week() {
             </div>
           </Draggable>
         </div>
-        {showEventModal &&
-          <div
-            className='mangobyte overlay bg-gray-500 bg-opacity-50'
-            onClick={(e) => { handleClickOnMangoByte(e) }}
-          >
-            <Draggable bounds="parent">
-              <div onClick={(e) => { e.stopPropagation() }} className='w-1/4 h-1/4 bg-amber-200 relative'>
-                <EventModal />
-              </div>
-            </Draggable>
-
-          </div>
-        }
+        {showEventModal && <EventModal hideModal={hideEventModal} />}
       </div>
     </>
   );
