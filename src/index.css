@@ -3,11 +3,16 @@
 @tailwind utilities;
 
 
+:root {
+    --week-table-cell-width: 100px;
+    --week-table-cell-height: 50px;
+}
+
 /* Path: src/App.css required for Draggable to work - position (relative or absolute), width, and height*/
 .week-background {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 .calendar-week-view {
@@ -17,7 +22,7 @@
     z-index: 10;
 }
 
-.table-container {
+#table-container {
     width: 800px;
     height: 500px;
     overflow: auto;
@@ -36,19 +41,19 @@ tbody {
 
 td,
 th {
-    width: 100px;
-    height: 50px;
+    width: var(--week-table-cell-width);
+    height: var(--week-table-cell-height);
 }
 
 td:hover {
     background-color: lightgray;
 }
 
-.mangobyte {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 20;
+tr td:first-child {
+    background-color: white;
+    text-align: right;
+}
 
+#create-event-form {
+    width: 400px;
 }
