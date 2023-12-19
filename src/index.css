@@ -8,20 +8,6 @@
     --week-table-cell-height: 50px;
 }
 
-/* Path: src/App.css required for Draggable to work - position (relative or absolute), width, and height*/
-.week-background {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.calendar-week-view {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-}
-
 #table-container {
     width: 800px;
     height: 500px;
@@ -52,8 +38,4 @@ td:hover {
 tr td:first-child {
     background-color: white;
     text-align: right;
-}
-
-#create-event-form {
-    width: 400px;
 }

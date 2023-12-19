@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 
 
 export default function App() {
-	const [selectedView, setSelectedView] = useState("Week");
+	const [selectedView, setSelectedView] = useState("Month");
 	const navbarProps = {
 		selectedView, setSelectedView
 	}
