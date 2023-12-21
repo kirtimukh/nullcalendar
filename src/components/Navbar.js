@@ -5,7 +5,7 @@ const Navbar = ({ props }) => {
         props.setSelectedView(e.target.value);
     }
     return (
-        <nav className="flex items-center justify-between py-4 px-6 w-full" id='navbar'>
+        <nav className="flex items-center justify-between py-4 px-6 w-full hidden" id='navbar'>
             <div className="flex items-center">
                 <div className="text-slate-900 font-semibold text-lg">Home</div>
                 <div className="ml-4 text-slate-900">View</div>

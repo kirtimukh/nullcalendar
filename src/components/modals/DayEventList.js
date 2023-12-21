@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FiPlus } from 'react-icons/fi';
 
 
-const DayEventList = ({ selectDate }) => {
+const DayEventList = ({ selectDate, displayEventModal }) => {
     // const [returnDate, setReturnDate] = useState();
     // const [isScheduled, setIsScheduled] = useState(null);
 
@@ -23,7 +23,7 @@ const DayEventList = ({ selectDate }) => {
     // }
 
     return (
-        <div className="w-96 flex flex-col h-full">
+        <div className="w-96 flex flex-col" id="events-of-the-day">
             <div className="flex justify-between w-full top-0">
                 <div>
                     <h1 className="font-semibold">
@@ -33,9 +33,7 @@ const DayEventList = ({ selectDate }) => {
                 </div>
                 <div>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded"
-                    // onClick={() => {
-                    //     postSelectDate(selectDate)
-                    // }}
+                        onClick={(e) => displayEventModal()}
                     >
                         <FiPlus className="w-full h-full"
                         />

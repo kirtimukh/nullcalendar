@@ -8,21 +8,20 @@
     --week-table-cell-height: 50px;
 }
 
-#table-container {
-    width: 800px;
+#week-container {
+    width: 750px;
     height: 500px;
     overflow: auto;
+    margin-right: 15px;
 }
 
 thead {
     position: sticky;
     top: 0;
-    background: white;
 }
 
 tbody {
     overflow-y: scroll;
-    background-color: antiquewhite;
 }
 
 td,
@@ -36,6 +35,11 @@ td:hover {
 }
 
 tr td:first-child {
-    background-color: white;
     text-align: right;
+    width: 50px;
+    font-size: 14px;
+}
+
+tr th:first-child {
+    width: 50px;
 }

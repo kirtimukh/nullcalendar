@@ -3,27 +3,30 @@ import dayjs from "dayjs";
 import Draggable from 'react-draggable';
 
 import EventModal from '../modals/createEventModal';
+import { centerAndShow, updateCalendarZState, updateComponentZState } from '../utils';
 
-export default function Week() {
+export default function Week({ zStack, setZStack, parentSP }) {
   useEffect(() => {
-    const viewportWidth = document.documentElement.clientWidth
-    const viewportHeight = document.documentElement.clientHeight
-    const navbar = document.getElementById('navbar');
-    const navbarHeight = navbar.offsetHeight;
+    const selfContainer = document.getElementById('week-container');
+    const selfWidth = selfContainer.offsetWidth;
+    const selfHeight = selfContainer.offsetHeight;
 
-    const tableContainer = document.getElementById('table-container');
-    const tableWidth = tableContainer.offsetWidth;
-    const tableHeight = tableContainer.offsetHeight;
-    const tableLeft = (viewportWidth / 2) - ((tableWidth - 100) / 2) - 100;
-    const tableTop = (viewportHeight / 2) - ((tableHeight - 50) / 2) - 50 - navbarHeight;
-    const tableStyleLeft = `${tableLeft}px`;
-    const tableStyleTop = `${tableTop}px`;
+    const selfTop = (parentSP.boxHeight / 2) - (selfHeight / 2) + parentSP.boxTop;
+    const selfLeft = (parentSP.boxWidth / 2) - (selfWidth / 2) + parentSP.boxLeft;
+    console.log(parentSP.boxHeight, parentSP.boxWidth, selfLeft, selfTop)
+    selfContainer.style.left = `${selfLeft}px`;
+    selfContainer.style.top = `${selfTop}px`;
+  }, [parentSP])
 
-    tableContainer.style.left = tableStyleLeft;
-    tableContainer.style.top = tableStyleTop;
+  const componentName = 'Week';
+  const handleMouseDown = (e) => {
+    updateCalendarZState(zStack, setZStack, componentName)
+  }
 
-    console.log(tableContainer.style.left, tableContainer.style.top)
-  }, [])
+  const [currentZStack, setCurrentZStack] = useState(zStack);
+  const [zValue, setZValue] = useState(0);
+
+  updateComponentZState(currentZStack, setCurrentZStack, zStack, setZValue, componentName)
 
   const startOfWeek = dayjs().startOf('week');
 
@@ -31,36 +34,26 @@ export default function Week() {
   for (let i = 0; i < 7; i++) {
     weekDates.push(startOfWeek.add(i, 'day').format('YYYY-MM-DD'));
   }
+
   const [showEventModal, setShowEventModal] = useState(false);
   const hideEventModal = () => {
     setShowEventModal(false)
   }
 
+  // EventModal props to position the modal over the table box before displaying it.
   const [eventModalProps, setEventModalProps] = useState({
-    hideModal: hideEventModal,
     boxWidth: 0,
     boxHeight: 0,
     boxTop: 0,
     boxLeft: 0,
   })
 
-  const displayEventModal = () => {
-    const element = document.getElementById('table-container');
-    const rectPoints = element.getBoundingClientRect();
+  const posRefElementId = 'week-container'
 
-    const navbar = document.getElementById('navbar');
-    const navbarHeight = navbar.offsetHeight;
-
-    setEventModalProps({
-      hideModal: hideEventModal,
-      boxWidth: element.offsetWidth - 100,
-      boxLeft: rectPoints.left + 100,
-      boxHeight: element.offsetHeight - 50,
-      boxTop: rectPoints.top + 50 - navbarHeight,
-    })
-
-    console.log(eventModalProps)
-    setShowEventModal(true);
+  const displayEventModal = (isDragging) => {
+    // return
+    if (isDragging) return;
+    centerAndShow(setEventModalProps, setShowEventModal, posRefElementId)
   }
 
   const nodeRef = useRef(null);
@@ -78,7 +71,13 @@ export default function Week() {
           }, 30)
         }}
       >
-        <div ref={nodeRef} className='absolute' id='table-container'>
+        <div
+          id='week-container'
+          ref={nodeRef}
+          className={`flex absolute`}
+          style={{ zIndex: zValue }}
+          onMouseDownCapture={(e) => handleMouseDown(e)}
+        >
           <div>
             <table>
               <thead>
@@ -88,7 +87,7 @@ export default function Week() {
                   {weekDates.map(date => (
                     <th role="columnheader" key={date}>
                       <h4>{dayjs(date).format('ddd')}</h4>
-                      <p className='text-xl'>{dayjs(date).format('D')}</p>
+                      <p className='text-xl transition-all'>{dayjs(date).format('D')}</p>
                     </th>
                   ))}
                 </tr>
@@ -101,7 +100,7 @@ export default function Week() {
                       <td className="align-top font-mono">{hour}:00</td>
                       {weekDates.map(date => (
                         <td className='border-t border-l border-gray-100 rounded-l-none' key={`${date}-${hour}-00-59`}
-                          onClick={(e) => { isDragging ? e.preventDefault() : displayEventModal() }}></td>
+                          onClick={() => { displayEventModal(isDragging) }}></td>
                       ))}
                     </tr>
                   )
@@ -112,7 +111,7 @@ export default function Week() {
         </div>
       </Draggable>
 
-      {showEventModal && <EventModal props={eventModalProps} />}
+      {showEventModal && <EventModal hideModal={hideEventModal} parentSP={eventModalProps} source={"EventOfTheWeek"} />}
     </>
   );
 }

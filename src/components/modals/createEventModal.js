@@ -2,15 +2,15 @@ import React, { useRef, useEffect } from 'react';
 import Draggable from 'react-draggable';
 
 
-export default function EventModal({ props }) {
+export default function EventModal({ hideModal, parentSP, source }) {
   const nodeRef = useRef(null);
 
   useEffect(() => {
     const eventModal = document.getElementById('create-event-form');
     const modalWidth = eventModal.offsetWidth;
     const modalHeight = eventModal.offsetHeight;
-    const modalLeft = props.boxLeft + (props.boxWidth / 2) - (modalWidth / 2);
-    const modalTop = props.boxTop + (props.boxHeight / 2) - (modalHeight / 2);
+    const modalLeft = parentSP.boxLeft + (parentSP.boxWidth / 2) - (modalWidth / 2);
+    const modalTop = parentSP.boxTop + (parentSP.boxHeight / 2) - (modalHeight / 2);
     const modalStyleLeft = `${modalLeft}px`;
     const modalStyleTop = `${modalTop}px`;
 
@@ -20,20 +20,16 @@ export default function EventModal({ props }) {
 
   return (
     <>
-      {/* <div
-        className='mangobyte overlay bg-gray-500 bg-opacity-50 absolute top-0 left-0 w-full h-full z-20'
-        onClick={props.hideModal}
-      > */}
       <Draggable bounds="parent" nodeRef={nodeRef}>
         <div
           onClick={(event) => { event.stopPropagation() }}
-          className='bg-amber-200 absolute w-[400px]'
+          className='bg-amber-200 absolute w-96'
           id='create-event-form'
           ref={nodeRef}
         >
           <div className='w-full h-full'>
             <div className='mangoform bg-lime-300'>
-              <h2>Create Event</h2>
+              <h2>Create Event {source}</h2>
               <form className='flex flex-col'>
                 <label htmlFor='event-name'>Event Name</label>
                 <input
@@ -66,7 +62,7 @@ export default function EventModal({ props }) {
                   name='event-participants'
                   id='event-participants' />
                 <div className='flex justify-evenly'>
-                  <button className='close-btn' onClick={props.hideModal}>Close</button>
+                  <button className='close-btn' onClick={hideModal}>Close</button>
                   <button className='save-btn'>Save</button>
                 </div>
               </form>
