@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import Week from "./Week";
 import Month from "./Month";
+import LMonth from './LMonth';
+import LWeek from './LWeek';
 
 const Calendar = () => {
     const [showWeek, setShowWeek] = useState(false)
@@ -20,7 +22,7 @@ const Calendar = () => {
         setShowWeek(true)
     }, [])
 
-    const [zStack, setZStack] = useState(['Month', 'Week'])
+    const [zStack, setZStack] = useState([])
 
     const allProps = {
         zStack, setZStack, parentSP
@@ -30,8 +32,10 @@ const Calendar = () => {
         <>
             {/* DndSpace: required for Draggable to work - position (relative or absolute), width, and height */}
             <div className='w-full h-full absolute' id='DnDSpace'>
-                <Month {...allProps} />
-                {showWeek && <Week {...allProps} />}
+                {false && <Month {...allProps} />}
+                {false && <Week {...allProps} />}
+                <LMonth {...allProps} componentName='Month' posRefElementId='events-of-the-day' />
+                {showWeek && <LWeek {...allProps} componentName='Week' posRefElementId='week-container' />}
             </div>
         </>
     )

@@ -6,6 +6,13 @@ import EventModal from '../modals/createEventModal';
 import { centerAndShow, updateCalendarZState, updateComponentZState } from '../utils';
 
 export default function Week({ zStack, setZStack, parentSP }) {
+  const componentName = 'Week';
+  useEffect(() => {
+    if (!zStack.includes(componentName)) {
+      setZStack([...zStack, componentName])
+    };
+  }, [])
+
   useEffect(() => {
     const selfContainer = document.getElementById('week-container');
     const selfWidth = selfContainer.offsetWidth;
@@ -18,7 +25,6 @@ export default function Week({ zStack, setZStack, parentSP }) {
     selfContainer.style.top = `${selfTop}px`;
   }, [parentSP])
 
-  const componentName = 'Week';
   const handleMouseDown = (e) => {
     updateCalendarZState(zStack, setZStack, componentName)
   }

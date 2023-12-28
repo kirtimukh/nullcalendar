@@ -1,6 +1,5 @@
 
 export const centerAndShow = (setModalProps, setShowEventModal, posRefElementId) => {
-    console.log(posRefElementId);
 
     const element = document.getElementById(posRefElementId);
     const rectPoints = element.getBoundingClientRect();
@@ -11,8 +10,8 @@ export const centerAndShow = (setModalProps, setShowEventModal, posRefElementId)
     switch (posRefElementId) {
         case 'week-container':
             setModalProps({
-                boxWidth: element.offsetWidth - 100,
-                boxLeft: rectPoints.left + 100,
+                boxWidth: element.offsetWidth - 50,
+                boxLeft: rectPoints.left + 50,
                 boxHeight: element.offsetHeight - 50,
                 boxTop: rectPoints.top + 50 - navbarHeight,
             })
