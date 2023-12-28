@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/nullcalendar/static/css/main.a29f4cee.css",
+    "main.js": "/nullcalendar/static/js/main.d03a4d6d.js",
+    "static/js/787.8bb4e5ec.chunk.js": "/nullcalendar/static/js/787.8bb4e5ec.chunk.js",
+    "index.html": "/nullcalendar/index.html",
+    "main.a29f4cee.css.map": "/nullcalendar/static/css/main.a29f4cee.css.map",
+    "main.d03a4d6d.js.map": "/nullcalendar/static/js/main.d03a4d6d.js.map",
+    "787.8bb4e5ec.chunk.js.map": "/nullcalendar/static/js/787.8bb4e5ec.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a29f4cee.css",
+    "static/js/main.d03a4d6d.js"
+  ]
+}
