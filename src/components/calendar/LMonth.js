@@ -17,9 +17,8 @@ function LMonth({
     parentSP,
     handleMouseDown,
     zNumber,
-    showEventModal, hideEventModal,
-    eventModalProps, setEventModalProps,
-    displayEventModal
+    displayEventModal,
+    contextProps
 }) {
 
     const days = ["S", "M", "T", "W", "T", "F", "S"];
@@ -47,7 +46,6 @@ function LMonth({
                     ref={nodeRef}
                     style={{ zIndex: zNumber }}
                     className={`flex gap-10 items-center absolute items-stretch`}
-
                     onMouseDownCapture={(e) => handleMouseDown(e)}
                 >
                     <div className="w-96" onClick={(event) => { event.stopPropagation() }}>

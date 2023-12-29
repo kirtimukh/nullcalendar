@@ -15,12 +15,6 @@ import EventModal from '../modals/createEventModal';
 const Month = ({ zStack, setZStack, parentSP }) => {
     const componentName = 'Month';
 
-    useEffect(() => {
-        if (!zStack.includes(componentName)) {
-            setZStack([...zStack, componentName])
-        };
-    }, [])
-
     const handleMouseDown = (e) => {
         updateCalendarZState(zStack, setZStack, componentName)
     }

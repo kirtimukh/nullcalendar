@@ -4,9 +4,10 @@ import Week from "./Week";
 import Month from "./Month";
 import LMonth from './LMonth';
 import LWeek from './LWeek';
+import DraggableX from '../DraggableX';
 
 const Calendar = () => {
-    const [showWeek, setShowWeek] = useState(false)
+
     const [parentSP, setParentSP] = useState({
         boxWidth: 0,
         boxHeight: 0,
@@ -19,10 +20,9 @@ const Calendar = () => {
             boxLeft: selfContainer.offsetLeft,
             boxTop: selfContainer.offsetTop,
         })
-        setShowWeek(true)
     }, [])
 
-    const [zStack, setZStack] = useState([])
+    const [zStack, setZStack] = useState(['Month', 'Week'])
 
     const allProps = {
         zStack, setZStack, parentSP
@@ -32,10 +32,12 @@ const Calendar = () => {
         <>
             {/* DndSpace: required for Draggable to work - position (relative or absolute), width, and height */}
             <div className='w-full h-full absolute' id='DnDSpace'>
-                {false && <Month {...allProps} />}
-                {false && <Week {...allProps} />}
-                <LMonth {...allProps} componentName='Month' posRefElementId='events-of-the-day' />
-                {showWeek && <LWeek {...allProps} componentName='Week' posRefElementId='week-container' />}
+                {/* {true && <Month {...allProps} />}
+                {true && <Week {...allProps} />}
+                {true && <LMonth {...allProps} componentName='Month' posRefElementId='events-of-the-day' />}
+                {true && <LWeek {...allProps} componentName='Week' posRefElementId='week-container' />} */}
+                {true && <DraggableX {...allProps} componentName='XMonth' posRefElementId='events-of-the-day' />}
+                {true && <DraggableX {...allProps} componentName='XWeek' posRefElementId='week-container' />}
             </div>
         </>
     )

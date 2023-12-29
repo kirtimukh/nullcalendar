@@ -11,17 +11,14 @@ function LWeek({
     parentSP,
     handleMouseDown,
     zNumber,
-    showEventModal, hideEventModal,
-    eventModalProps, setEventModalProps,
-    displayEventModal
+    displayEventModal,
+    contextProps
 }) {
 
     useEffect(() => {
         const selfContainer = document.getElementById('week-container');
         const selfWidth = selfContainer.offsetWidth;
         const selfHeight = selfContainer.offsetHeight;
-
-        console.log(parentSP, selfWidth, selfHeight)
 
         const selfTop = (parentSP.boxHeight / 2) - (selfHeight / 2) + parentSP.boxTop;
         const selfLeft = (parentSP.boxWidth / 2) - ((selfWidth - 50) / 2) + parentSP.boxLeft - 50;

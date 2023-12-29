@@ -7,11 +7,6 @@ const HOC = (WrappedComponent) => {
     return function EnhancedComponent({
         zStack, setZStack, parentSP, componentName, posRefElementId
     }) {
-        useEffect(() => {
-            if (!zStack.includes(componentName)) {
-                setZStack([...zStack, componentName])
-            };
-        }, [])
 
         const handleMouseDown = (e) => {
             updateCalendarZState(zStack, setZStack, componentName)
@@ -48,13 +43,18 @@ const HOC = (WrappedComponent) => {
             centerAndShow(setEventModalProps, setShowEventModal, posRefElementId)
         }
 
+        const contextProps = {}
         const props = {
             parentSP,
             handleMouseDown,
             zNumber,
-            showEventModal, hideEventModal,
-            eventModalProps, setEventModalProps,
-            displayEventModal
+            displayEventModal,
+            contextProps
+        }
+
+        const xComponents = ['XMonth', 'XWeek']
+        if (xComponents.includes(componentName)) {
+            return <WrappedComponent componentName={componentName} {...props} />
         }
 
         return <>

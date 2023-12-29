@@ -7,11 +7,6 @@ import { centerAndShow, updateCalendarZState, updateComponentZState } from '../u
 
 export default function Week({ zStack, setZStack, parentSP }) {
   const componentName = 'Week';
-  useEffect(() => {
-    if (!zStack.includes(componentName)) {
-      setZStack([...zStack, componentName])
-    };
-  }, [])
 
   useEffect(() => {
     const selfContainer = document.getElementById('week-container');
@@ -20,7 +15,7 @@ export default function Week({ zStack, setZStack, parentSP }) {
 
     const selfTop = (parentSP.boxHeight / 2) - (selfHeight / 2) + parentSP.boxTop;
     const selfLeft = (parentSP.boxWidth / 2) - (selfWidth / 2) + parentSP.boxLeft;
-    console.log(parentSP.boxHeight, parentSP.boxWidth, selfLeft, selfTop)
+
     selfContainer.style.left = `${selfLeft}px`;
     selfContainer.style.top = `${selfTop}px`;
   }, [parentSP])
