@@ -1,52 +1,27 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { generateDate, months } from "../../utils/calendar";
-import cn from "../../utils/cn";
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-import DayEventList from '../modals/DayEventList';
-import Draggable from 'react-draggable';
+import HOC from "../HOC";
 
-import { centerAndShow, updateCalendarZState, updateComponentZState } from '../utils';
+import React, { useState, useRef } from 'react'
+import { generateDate, months } from "../../../utils/calendar";
+import cn from "../../../utils/cn";
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import DayEventList from '../../modals/DayEventList';
+import Draggable from 'react-draggable';
 
 import dayjs from "dayjs";
 
-import EventModal from '../modals/createEventModal';
 
-
-const Month = ({ zStack, setZStack, parentSP }) => {
-    const componentName = 'Month';
-
-    const handleMouseDown = (e) => {
-        updateCalendarZState(zStack, setZStack, componentName)
-    }
-
-    const [currentZStack, setCurrentZStack] = useState(zStack);
-    const [zNumber, setZNumber] = useState(0);
-
-    updateComponentZState(currentZStack, setCurrentZStack, zStack, setZNumber, componentName)
+function LMonth({
+    parentSP,
+    handleMouseDown,
+    zNumber,
+    displayEventModal,
+    contextProps
+}) {
 
     const days = ["S", "M", "T", "W", "T", "F", "S"];
     const currentDate = dayjs();
     const [today, setToday] = useState(currentDate);
     const [selectDate, setSelectDate] = useState(currentDate);
-
-    const [showEventModal, setShowEventModal] = useState(false);
-    const hideEventModal = () => {
-        setShowEventModal(false)
-    }
-
-    // EventModal props to position the modal over the table box before displaying it.
-    const [eventModalProps, setEventModalProps] = useState({
-        boxWidth: 0,
-        boxHeight: 0,
-        boxTop: 0,
-        boxLeft: 0,
-    })
-
-    const posRefElementId = 'events-of-the-day'
-
-    const displayEventModal = () => {
-        centerAndShow(setEventModalProps, setShowEventModal, posRefElementId)
-    }
 
     const nodeRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -68,7 +43,6 @@ const Month = ({ zStack, setZStack, parentSP }) => {
                     ref={nodeRef}
                     style={{ zIndex: zNumber }}
                     className={`flex gap-10 items-center absolute items-stretch`}
-
                     onMouseDownCapture={(e) => handleMouseDown(e)}
                 >
                     <div className="w-96" onClick={(event) => { event.stopPropagation() }}>
@@ -149,10 +123,9 @@ const Month = ({ zStack, setZStack, parentSP }) => {
                     <DayEventList selectDate={selectDate} displayEventModal={displayEventModal} />
                 </div>
             </Draggable>
-            {showEventModal && <EventModal hideModal={hideEventModal} props={eventModalProps} source={"EventOfTheDay"} />}
         </>
 
     )
 }
 
-export default Month
+export default HOC(LMonth);

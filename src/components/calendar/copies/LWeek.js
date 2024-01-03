@@ -1,10 +1,8 @@
-import HOC from "./HOC";
+import HOC from "../HOC";
 
 import React, { useState, useEffect, useRef } from 'react';
 import dayjs from "dayjs";
 import Draggable from 'react-draggable';
-
-import EventModal from '../modals/createEventModal';
 
 
 function LWeek({

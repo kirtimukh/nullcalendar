@@ -5,6 +5,7 @@ import { generateDate, months } from "../../utils/calendar";
 import cn from "../../utils/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import DayEventList from '../modals/DayEventList';
+import Board from '../checklist/Board';
 
 const XMonth = ({
     isDragging,
@@ -94,7 +95,7 @@ const XMonth = ({
                     )}
                 </div>
             </div>
-            <DayEventList selectDate={selectDate} displayEventModal={displayEventModal} />
+            <Board selectDate={selectDate} />
         </>
 
     )

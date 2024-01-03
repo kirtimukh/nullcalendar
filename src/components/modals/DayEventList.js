@@ -3,24 +3,6 @@ import { FiPlus } from 'react-icons/fi';
 
 
 const DayEventList = ({ selectDate, displayEventModal }) => {
-    // const [returnDate, setReturnDate] = useState();
-    // const [isScheduled, setIsScheduled] = useState(null);
-
-    // const postSelectDate = (date) => {
-    //     fetch("http://localhost:8000/meetings", {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({
-    //             date: date.toDate().toDateString(),
-    //             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
-    //         }),
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setReturnDate(data.date);
-    //             setIsScheduled(data.scheduled)
-    //         });
-    // }
 
     return (
         <div className="w-96 flex flex-col" id="events-of-the-day">
