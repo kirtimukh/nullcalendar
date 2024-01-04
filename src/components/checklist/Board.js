@@ -18,7 +18,7 @@ const Board = ({ selectDate }) => {
     }
 
     return (
-        <div className="w-96 flex flex-col" id="events-of-the-day">
+        <div className="flex flex-col" id="items-of-the-day">
             <div className="flex justify-between w-full top-0">
                 <div>
                     <h1 className="font-semibold">

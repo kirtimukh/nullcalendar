@@ -3,6 +3,7 @@ import Draggable from 'react-draggable';
 import HOC from './calendar/HOC';
 import XMonth from './calendar/XMonth';
 import XWeek from './calendar/XWeek';
+import XBoard from './taskboard/XBoard';
 
 
 const DraggableX = ({
@@ -23,6 +24,9 @@ const DraggableX = ({
     } else if (componentName === 'XWeek') {
         XComponent = XWeek
         componentId = 'week-container'
+    } else if (componentName === 'XBoard') {
+        XComponent = XBoard
+        componentId = 'task-container'
     }
 
     const props = {
@@ -48,7 +52,7 @@ const DraggableX = ({
                     id={componentId}
                     ref={nodeRef}
                     style={{ zIndex: zNumber }}
-                    className={`flex gap-10 absolute items-stretch`}
+                    className='absolute'
                     onMouseDownCapture={(e) => handleMouseDown(e)}
                 >
                     <XComponent {...props} />

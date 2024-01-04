@@ -52,7 +52,7 @@ const HOC = (WrappedComponent) => {
             contextProps
         }
 
-        const xComponents = ['XMonth', 'XWeek']
+        const xComponents = ['XMonth', 'XWeek', 'XBoard']
         if (xComponents.includes(componentName)) {
             return <WrappedComponent componentName={componentName} {...props} />
         }

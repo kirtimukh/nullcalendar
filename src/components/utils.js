@@ -34,7 +34,7 @@ export const centerAndShow = (setModalProps, setShowEventModal, posRefElementId)
 
 export const updateCalendarZState = (zStack, setZStack, componentName) => {
     const index = zStack.indexOf(componentName);
-
+    console.log('componentName', componentName)
     if (index + 1 === zStack.length) {
         return;
     }
@@ -42,17 +42,16 @@ export const updateCalendarZState = (zStack, setZStack, componentName) => {
     tempZStack.splice(index, 1);
     tempZStack.push(componentName);
     setZStack(tempZStack);
-
 }
 
 
 export const updateComponentZState = (
-    currentZStack, setCurrentZStack, newZStack,
+    currentZStack, setCurrentZStack, zStack,
     setZValue, componentName
 ) => {
-    if (currentZStack !== newZStack) {
-        setCurrentZStack(newZStack);
-        const index = newZStack.indexOf(componentName);
+    if (currentZStack !== zStack) {
+        setCurrentZStack(zStack);
+        const index = zStack.indexOf(componentName);
         const tempZNumber = (index + 1) * 10;
         setZValue(tempZNumber);
     }

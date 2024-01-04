@@ -15,6 +15,14 @@
     margin-right: 15px;
 }
 
+#month-container {
+    width: 750px;
+}
+
+#task-container {
+    width: 750px;
+}
+
 thead {
     position: sticky;
     top: 0;
